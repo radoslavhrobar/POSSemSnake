@@ -11,11 +11,12 @@ void init_game_without_obs(int size_, game_world* world) {
   init_field(world);
   for (int i = 0; i < world->size; i++) {
     for (int j = 0; j < world->size; j++) {
-        world->field[i][j] = '-'; 
+        world->field[i][j] = ' '; 
     }
   }
   world->field[world->snake.body[0].y][world->snake.body[0].x] = '*';
   generate_fruit(world);
+  world->points = 0;
 }
 
 
@@ -45,7 +46,7 @@ void generate_fruit(game_world* world) {
   do {
     x = rand() % world->size;
     y = rand() % world->size;
-  } while (world->field[y][x] != '-'); 
+  } while (world->field[y][x] != ' '); 
   world->field[y][x] = 'F';
 }
 
@@ -55,7 +56,7 @@ void generate_obstacles(game_world* world, int n_obstacles) {
     do {
       x = rand() % world->size;
       y = rand() % world->size;
-    } while (world->field[y][x] != '-');
+    } while (world->field[y][x] != ' ');
     world->field[y][x] = 'O';
   }
 }
@@ -67,6 +68,7 @@ void print_world(game_world* world) {
     }
     printf("\n");
   }
+  printf("\n");
 }
 
 bool move_snake(char* direction, game_world* world) {
@@ -91,7 +93,7 @@ bool move_snake(char* direction, game_world* world) {
     return false;
   }
   
-  world->field[world->snake.body[0].y][world->snake.body[0].x] = '-';
+  world->field[world->snake.body[0].y][world->snake.body[0].x] = ' ';
   position prev_pos = world->snake.body[0];
 
   for (size_t i = 0; i < world->snake.len - 1; i++) {
@@ -102,6 +104,7 @@ bool move_snake(char* direction, game_world* world) {
   world->field[new_pos.y][new_pos.x] = '*';
   
   if (kontrola == 0) {
+    world->points++;
     world->snake.len++;
     world->snake.body = realloc(world->snake.body, world->snake.len * sizeof(position));
     

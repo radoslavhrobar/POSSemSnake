@@ -17,6 +17,7 @@ typedef struct game_world {
   int size;
   char** field;
   snake snake;
+  int points;
 } game_world;
 
 void init_game_without_obs(int size_, game_world* world);
