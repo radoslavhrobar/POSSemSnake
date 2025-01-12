@@ -3,6 +3,8 @@
 
 #include <stddef.h>
 
+#define BUFFER_CAPACITY 1
+
 typedef struct buffer {
   char data;
   size_t capacity_;

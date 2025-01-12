@@ -10,7 +10,7 @@ void syn_shm_buffer_init(shared_names *names) {
     exit(EXIT_FAILURE);
   }
   if (sem_open(names->sem_produce_, O_RDWR | O_CREAT | O_EXCL,
-    S_IRUSR | S_IWUSR, 1) == SEM_FAILED) {
+    S_IRUSR | S_IWUSR, BUFFER_CAPACITY) == SEM_FAILED) {
     perror("Failed to create sem produce");
     exit(EXIT_FAILURE);
   }

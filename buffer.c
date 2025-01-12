@@ -1,7 +1,7 @@
 #include "buffer.h"
 
 void buffer_init(buffer* this) {
-  this->capacity_ = 1;
+  this->capacity_ = BUFFER_CAPACITY;
   this->size_ = 0;
 }
 

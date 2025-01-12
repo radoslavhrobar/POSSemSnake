@@ -27,6 +27,13 @@ void init_field(game_world* world) {
   }
 }
 
+void destroy_field(game_world* world) {
+  for (size_t i = 0; i < world->size; i++) {
+    free(world->field[i]);
+  }
+  free(world->field);
+}
+
 
 void init_game_with_obs(int size, int n_obstacles, game_world* world) {
   init_game_without_obs(size, world);
@@ -35,10 +42,7 @@ void init_game_with_obs(int size, int n_obstacles, game_world* world) {
 
 void destroy_game(game_world* world) {
   free(world->snake.body);
-  for (size_t i = 0; i < world->size; i++) {
-    free(world->field[i]);
-  }
-  free(world->field);
+  destroy_field(world);
 }
 
 void generate_fruit(game_world* world) {
@@ -62,11 +66,19 @@ void generate_obstacles(game_world* world, int n_obstacles) {
 }
 
 void print_world(game_world* world) {
+  for (size_t i = 0; i < world->size+2; i++) {
+    printf("-");
+  }
+  printf("\n");
   for (size_t i = 0; i < world->size; i++) {
+    printf("|");
     for (size_t j = 0; j < world->size; j++) {
       printf("%c", world->field[i][j]);
     }
-    printf("\n");
+    printf("|\n");
+  }
+  for (size_t i = 0; i < world->size+2; i++) {
+    printf("-");
   }
   printf("\n");
 }

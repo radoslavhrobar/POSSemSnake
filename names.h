@@ -7,10 +7,9 @@ typedef struct shared_names {
   char *sem_produce_;
   char *sem_consume_;
   char *pipe1;
-  char* pipe2;
 } shared_names;
 
-
+void destroy_names(shared_names* names);
 
 #endif
 

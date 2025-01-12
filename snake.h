@@ -23,6 +23,7 @@ typedef struct game_world {
 void init_game_without_obs(int size_, game_world* world);
 void init_game_with_obs(int size_, int n_obstacles, game_world* world);
 void init_field(game_world* world);
+void destroy_field(game_world* world);
 void generate_fruit(game_world* world);
 void generate_obstacles(game_world* world, int n_obstacles);
 void destroy_game(game_world* world);
