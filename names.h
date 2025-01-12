@@ -10,6 +10,7 @@ typedef struct shared_names {
 } shared_names;
 
 void destroy_names(shared_names* names);
+char * add_suffix(const char * name, const char * suffix);
 
 #endif
 

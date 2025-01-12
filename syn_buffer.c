@@ -1,7 +1,8 @@
 #include <stddef.h>
 #include <stdio.h>
-#include "syn_buffer.h"
 #include <stdlib.h>
+
+#include "syn_buffer.h"
 
 void syn_shm_buffer_init(shared_names *names) {
   if (sem_open(names->mut_pc_, O_RDWR | O_CREAT | O_EXCL,

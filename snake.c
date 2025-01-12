@@ -5,16 +5,20 @@
 
 void init_game_without_obs(int size_, game_world* world) {
   world->size = size_;
-  world->snake.len = 1;
+  world->snake.len = 3;
   world->snake.body = malloc(world->snake.len * sizeof(position));
-  world->snake.body[0] = (position){size_ / 2, size_ / 2};
+  for (size_t i = 0; i < world->snake.len; i++) {
+    world->snake.body[i] = (position){size_ / 2, size_ / 2 - i};
+  }
   init_field(world);
   for (int i = 0; i < world->size; i++) {
     for (int j = 0; j < world->size; j++) {
         world->field[i][j] = ' '; 
     }
   }
-  world->field[world->snake.body[0].y][world->snake.body[0].x] = '*';
+  for (size_t i = 0; i < world->snake.len; i++) {
+    world->field[world->snake.body[i].y][world->snake.body[i].x] = 'O';
+  }
   generate_fruit(world);
   world->points = 0;
 }
@@ -61,7 +65,7 @@ void generate_obstacles(game_world* world, int n_obstacles) {
       x = rand() % world->size;
       y = rand() % world->size;
     } while (world->field[y][x] != ' ');
-    world->field[y][x] = 'O';
+    world->field[y][x] = '+';
   }
 }
 
@@ -113,7 +117,7 @@ bool move_snake(char* direction, game_world* world) {
   }
 
   world->snake.body[world->snake.len-1] = new_pos;
-  world->field[new_pos.y][new_pos.x] = '*';
+  world->field[new_pos.y][new_pos.x] = 'O';
   
   if (kontrola == 0) {
     world->points++;
@@ -124,7 +128,7 @@ bool move_snake(char* direction, game_world* world) {
       world->snake.body[i] = world->snake.body[i-1];
     }
     world->snake.body[0] = prev_pos;
-    world->field[prev_pos.y][prev_pos.x] = '*';
+    world->field[prev_pos.y][prev_pos.x] = 'O';
     generate_fruit(world);
   }
   return true;
@@ -145,7 +149,7 @@ int check_collisions(position* new_pos, game_world* world) {
     return 0;                                                                           
   } else if (world->field[new_pos->y][new_pos->x] == 'O') {
     return 1;
-  } else if (world->field[new_pos->y][new_pos->x] == '*') {
+  } else if (world->field[new_pos->y][new_pos->x] == '+') {
     return 1;
   }
   return 2;
