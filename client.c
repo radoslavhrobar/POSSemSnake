@@ -78,10 +78,10 @@ char get_game_type() {
 
 int get_dimension() {
   int input;
-  printf("Zadaj rozmer herneho sveta od 10 do 40\n");
+  printf("Zadaj rozmer herneho sveta od 10 do 30\n");
   scanf(" %d", &input);
-  while (input < 10 || input > 40) {
-    printf("Rozmer moze byt len od 10 do 40!\n");
+  while (input < 10 || input > 30) {
+    printf("Rozmer moze byt len od 10 do 30!\n");
     scanf(" %d", &input);
   }
   return input;
@@ -200,7 +200,7 @@ void* run_producer_input_push(void* arg) {
       }
     }
     syn_shm_buffer_push(&syn, &data->input);
-    usleep(650000);
+    usleep(500000);
   }
 
   pthread_join(t_input, NULL);

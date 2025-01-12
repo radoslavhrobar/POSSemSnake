@@ -4,7 +4,7 @@
 #include <stdatomic.h>
 #include "names.h"
 
-#define SOCKET_PC 4921
+#define SOCKET_PC 2984
 
 typedef struct producer_data {
   shared_names* names;
